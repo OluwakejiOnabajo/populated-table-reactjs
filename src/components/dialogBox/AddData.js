@@ -29,10 +29,11 @@ const DialogBox = (props) => {
       <div>
         
       <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-          <InputLabel htmlFor="dessert">Dessert</InputLabel>
+          <InputLabel htmlFor="dessert">Name of Dessert</InputLabel>
           <Input
             id="dessert"
-            // value={dessert}
+            value={dessert}
+            type="text"
             onChange={(e) => setDessert(e.target.value)}
           />
         </FormControl>
@@ -43,33 +44,37 @@ const DialogBox = (props) => {
           <Input
             id="calories"
             value={calories}
+            type="number"
             onChange={(e) => setCalories(e.target.value)}
           />
         </FormControl>
 
         <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-          <InputLabel htmlFor="fat">Fat</InputLabel>
+          <InputLabel htmlFor="fat">Fat (g)</InputLabel>
           <Input
             id="fat"
             value={fat}
+            type="number"
             onChange={(e) => setFat(e.target.value)}
           />
         </FormControl>
 
         <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-          <InputLabel htmlFor="carbs">Carbs</InputLabel>
+          <InputLabel htmlFor="carbs">Carbs (g)</InputLabel>
           <Input
             id="carbs"
             value={carbs}
+            type="number"
             onChange={(e) => setCarbs(e.target.value)}
           />
         </FormControl>
 
         <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-          <InputLabel htmlFor="protein">Protein</InputLabel>
+          <InputLabel htmlFor="protein">Protein (g)</InputLabel>
           <Input
             id="protein"
             value={protein}
+            type="number"
             onChange={(e) => setProtein(e.target.value)}
           />
         </FormControl>
