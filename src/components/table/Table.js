@@ -170,7 +170,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected,  } = props;
+  const { numSelected, handleOpen } = props;
 
   return (
     <Toolbar
