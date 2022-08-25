@@ -18,11 +18,9 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
-import TextField from '@mui/material/TextField';
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -170,7 +168,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, handleOpen } = props;
+  const { numSelected, handleClickOpen } = props;
 
   return (
     <Toolbar
@@ -212,7 +210,7 @@ const EnhancedTableToolbar = (props) => {
       ) :   null     }
       
       {/* Modal button */}
-      <Button onClick={handleOpen}> <AddIcon /></Button>
+      <Button onClick={handleClickOpen} variant="outlined"> <AddIcon /></Button>
     </Toolbar>
   );
 };
@@ -221,29 +219,15 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-
 //Table function
-const EnhancedTable = () => {
+const EnhancedTable = (props) => {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const { handleClickOpen } = props;
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -300,7 +284,7 @@ const EnhancedTable = () => {
     <Box sx={{ width: '100%' }}>
 
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} handleOpen={handleOpen} />
+        <EnhancedTableToolbar numSelected={selected.length} handleClickOpen={handleClickOpen} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -376,59 +360,6 @@ const EnhancedTable = () => {
         />
       </Paper>
     </Box>
-     {/* Add modal box */}
-     <Modal
-     open={open}
-     onClose={handleClose}
-     aria-labelledby="modal-modal-title"
-     aria-describedby="modal-modal-description"
-     component="form"
-     sx={{
-       '& .MuiTextField-root': { m: 1, width: '25ch' },
-     }}
-     noValidate
-     autoComplete="off"
-     >
-     <Box sx={style}>
-       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Enter Nutrition Details
-       </Typography>
-       <div>
-     <TextField
-       error
-       id="filled-error"
-       label="Error"
-       defaultValue="Hello World"
-       variant="filled"
-     />
-     <TextField
-       error
-       id="filled-error-helper-text"
-       label="Error"
-       defaultValue="Hello World"
-       helperText="Incorrect entry."
-       variant="filled"
-     />
-   </div>
-   <div>
-     <TextField
-       error
-       id="standard-error"
-       label="Error"
-       defaultValue="Hello World"
-       variant="standard"
-     />
-     <TextField
-       error
-       id="standard-error-helper-text"
-       label="Error"
-       defaultValue="Hello World"
-       helperText="Incorrect entry."
-       variant="standard"
-     />
-   </div>
-     </Box>
-   </Modal>
    </>
   );
 }

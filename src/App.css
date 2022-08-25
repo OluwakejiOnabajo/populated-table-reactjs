@@ -9,9 +9,6 @@ margin: 100px 50px 50px 50px;
 }
 
 .comment{
-  bottom: 0;
-  right: 0;
-  position: absolute;
   width: 100%;
   justify-content: center;
   text-align: center;
