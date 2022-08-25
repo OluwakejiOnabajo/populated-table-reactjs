@@ -20,7 +20,9 @@ import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
+import TextField from '@mui/material/TextField';
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -168,7 +170,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
+  const { numSelected, handleOpen } = props;
 
   return (
     <Toolbar
@@ -207,15 +209,10 @@ const EnhancedTableToolbar = (props) => {
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-      ) : (
-        // <Tooltip title="Filter list">
-        //   <IconButton>
-        //     <FilterListIcon />
-        //   </IconButton>
-        // </Tooltip>
-        null
-      )
-      }
+      ) :   null     }
+      
+      {/* Modal button */}
+      <Button onClick={handleOpen}> <AddIcon /></Button>
     </Toolbar>
   );
 };
@@ -243,7 +240,6 @@ const EnhancedTable = () => {
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -293,10 +289,6 @@ const EnhancedTable = () => {
     setPage(0);
   };
 
-  // const handleChangeDense = (event) => {
-  //   setDense(event.target.checked);
-  // };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -304,35 +296,16 @@ const EnhancedTable = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
+    <>
     <Box sx={{ width: '100%' }}>
 
-      {/* Modal button */}
-       <Button onClick={handleOpen}>Open modal</Button>
-
-       {/* Add modal box */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, estdd non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} handleOpen={handleOpen} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
+            >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -385,11 +358,7 @@ const EnhancedTable = () => {
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
+                <TableRow>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -406,11 +375,61 @@ const EnhancedTable = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      {/* <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      /> */}
     </Box>
+     {/* Add modal box */}
+     <Modal
+     open={open}
+     onClose={handleClose}
+     aria-labelledby="modal-modal-title"
+     aria-describedby="modal-modal-description"
+     component="form"
+     sx={{
+       '& .MuiTextField-root': { m: 1, width: '25ch' },
+     }}
+     noValidate
+     autoComplete="off"
+     >
+     <Box sx={style}>
+       <Typography id="modal-modal-title" variant="h6" component="h2">
+        Enter Nutrition Details
+       </Typography>
+       <div>
+     <TextField
+       error
+       id="filled-error"
+       label="Error"
+       defaultValue="Hello World"
+       variant="filled"
+     />
+     <TextField
+       error
+       id="filled-error-helper-text"
+       label="Error"
+       defaultValue="Hello World"
+       helperText="Incorrect entry."
+       variant="filled"
+     />
+   </div>
+   <div>
+     <TextField
+       error
+       id="standard-error"
+       label="Error"
+       defaultValue="Hello World"
+       variant="standard"
+     />
+     <TextField
+       error
+       id="standard-error-helper-text"
+       label="Error"
+       defaultValue="Hello World"
+       helperText="Incorrect entry."
+       variant="standard"
+     />
+   </div>
+     </Box>
+   </Modal>
+   </>
   );
 }
 
