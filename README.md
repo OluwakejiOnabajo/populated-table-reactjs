@@ -8,7 +8,7 @@
 This project is a where user can populate the table or write into the table using Reactjs
 
 ### Preview
-This project have been deployed and can be view [here - react-datatable](https://react-datatable.herokuapp.com/).
+This project have been deployed and can be view [here - populated-datatable-reactjs](https://populated-datatable-reactjs.netlify.app).
 
 # Getting Started with Create React App
 
