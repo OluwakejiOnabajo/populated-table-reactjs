@@ -8,26 +8,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import { useState } from 'react';
 
-const ModalBox = (props) => {
-    const {open, handleClose, handleSave } = props;
-    const [dessert, setDessert] = useState('dd');
-    const [calories, setCalories] = useState('d');
-    const [fat, setFat] = useState('dd');
-    const [carbs, setCarbs] = useState('ds');
-    const [protein, setProtein] = useState('dd');
-
-    console.log(dessert);
+const DialogBox = (props) => {
+  const { open, handleClose, handleSave, dessert, setDessert, calories, setCalories, fat, setFat, carbs, setCarbs, protein, setProtein } = props;
   
   return (
    
     <div>
-    {/* <Button variant="outlined" onClick={handleClickOpen}>
-      Open form dialog
-    </Button> */}
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Subscribe</DialogTitle>
+      <DialogTitle>Submit Your Dessert here for Approval</DialogTitle>
       <DialogContent  component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -43,7 +32,7 @@ const ModalBox = (props) => {
           <InputLabel htmlFor="dessert">Dessert</InputLabel>
           <Input
             id="dessert"
-            value={dessert}
+            // value={dessert}
             onChange={(e) => setDessert(e.target.value)}
           />
         </FormControl>
@@ -96,4 +85,4 @@ const ModalBox = (props) => {
   )
 }
 
-export default ModalBox
+export default DialogBox
