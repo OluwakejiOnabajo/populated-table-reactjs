@@ -2,7 +2,7 @@
 
 ### Title: HTML Table Populated with different data using React
 
-### SAIL Tech Talent Project 5
+### SAIL Tech Talent Project 4
 
 ### Description:
 This project is a where user can populate the table or write into the table using Reactjs
